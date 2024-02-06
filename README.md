@@ -19,5 +19,5 @@ Notes from Lecturer
 --> variable shouldn't be correlated
 --> welche variable predicten am besten
 
-
+hello
 

@@ -6,4 +6,5 @@ Notes from Lecturer
 - Wichtige features
 - Kleines Programm, Analyse 
 - je weniger unanbhängige Variable, desto besser
+--> variable shouldn't be correlated
 

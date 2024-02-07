@@ -53,4 +53,11 @@ Application z.B. Shiny
 
 Position wählen und dann wird anderes Regressionsmodell gebraucht
 
+Notzen Cami
+
+- Cleaning 
+--> restrict die Liga, aber nicht die Jahren
+--> Features current_club_domestic_competition id 
+--> Scatter plot, EDA 
+
 

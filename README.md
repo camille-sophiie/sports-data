@@ -59,5 +59,9 @@ Notzen Cami
 --> restrict die Liga, aber nicht die Jahren
 --> Features current_club_domestic_competition id 
 --> Scatter plot, EDA 
+# welche Zeitperiode
+# Fragestellung: market value faktoren, Unterschiede Big 5 Liga, Faktorenanalyse (welche faktoren steuern die variabilität des Marktwerter ) 
+#unabhangige vs abhangige FAktoren, mögliche korrelation, wenn hohe korrelation zusammenrechnen (nur unabhängige variablen), Scatterplot
+# Position unterscheiden hallo  f
 
 

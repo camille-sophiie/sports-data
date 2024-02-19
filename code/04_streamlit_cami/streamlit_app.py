@@ -1,46 +1,43 @@
-import streamlit as st
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.compose import ColumnTransformer
 import pickle
-import numpy as np
-from sklearn.datasets import load_iris
-from sklearn.tree import plot_tree
-import matplotlib.pyplot as plt
+import streamlit as st
+import os
+import pandas as pd
 
-# Load the trained model
-with open('iris_decision_tree.pkl', 'rb') as file:
-    clf = pickle.load(file)
+# Define the new working directory path
+new_working_directory = r'\Users\e904176\Documents\GitHub\sports-data\data'
 
-# Load Iris dataset for feature names and class names
-iris = load_iris()
+# Change the current working directory
+os.chdir(new_working_directory)
 
-# Streamlit app title
-st.title('Iris Decision Tree Classifier')
+# Assuming you have already loaded your dataframe as df_cleaned
+df_cleaned = pd.read_csv(new_working_directory+'\cleaned_df.csv')
 
-# Function to plot and visualize the tree
-def plot_decision_tree(clf, feature_names, class_names):
-    plt.figure(figsize=(16, 10))
-    plot_tree(clf, filled=True, feature_names=feature_names, class_names=class_names)
-    st.pyplot(plt)
+# Load the model and transformer
+model = pickle.load(open('linear_regression_model.pkl', 'rb'))
+transformer = pickle.load(open('transformer.pkl', 'rb'))
 
-# Function to accept user input
-def user_input_features():
-    sepal_length = st.slider('Sepal length', float(iris.data[:, 0].min()), float(iris.data[:, 0].max()), float(iris.data[:, 0].mean()))
-    sepal_width = st.slider('Sepal width', float(iris.data[:, 1].min()), float(iris.data[:, 1].max()), float(iris.data[:, 1].mean()))
-    petal_length = st.slider('Petal length', float(iris.data[:, 2].min()), float(iris.data[:, 2].max()), float(iris.data[:, 2].mean()))
-    petal_width = st.slider('Petal width', float(iris.data[:, 3].min()), float(iris.data[:, 3].max()), float(iris.data[:, 3].mean()))
-    return np.array([[sepal_length, sepal_width, petal_length, petal_width]])
+# Streamlit app layout
+st.title('Footballer Market Value Prediction')
 
-# Main function to control the app
-def main():
-    st.sidebar.header('User Input Parameters')
-    input_features = user_input_features()
+# Add inputs for the features
+country = st.selectbox('Country', options=df_cleaned['country'].unique())
+height = st.number_input('Height (in cm)')
+foot = st.selectbox('Preferred Foot', options=df_cleaned['foot'].unique())
+position = st.selectbox('Position', options=df_cleaned['position'].unique())
 
-    if st.button('Predict'):
-        prediction = clf.predict(input_features)
-        st.subheader('Prediction')
-        st.write(iris.target_names[prediction][0])
-
-    if st.button('Show Decision Tree'):
-        plot_decision_tree(clf, iris.feature_names, iris.target_names)
-
-if __name__ == '__main__':
-    main()
+# Predict button
+if st.button('Predict Market Value'):
+    # Process the input data in the same way as the training data
+    input_data = pd.DataFrame([[country, height, foot, position]],
+                              columns=['country', 'height', 'foot', 'position'])
+    
+    input_transformed = transformer.transform(input_data)
+    
+    # Predict the market value
+    prediction = model.predict(input_transformed)
+    st.write(f'Predicted Market Value: €{prediction[0]:,.2f}')

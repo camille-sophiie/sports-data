@@ -12,14 +12,7 @@ st.markdown("""
 ## Project Introduction
 Welcome! In this project, we aim to predict the market value of football players by analyzing a variety of features that influence a player's worth. Our analysis is based on a Kaggle dataset, meticulously curated to provide the most relevant factors affecting market values in the world of football.
 
-## Exploratory Data Analysis (EDA)
-The initial phase of our project is an in-depth Exploratory Data Analysis (EDA). Here's what you can expect:
 
-- **Descriptive Statistics**: We summarize the central tendencies, dispersion, and shape of the dataset's distribution.
-- **Data Visualizations**: Interactive charts and graphs that reveal underlying patterns and relationships.
-- **Data Quality Checks**: Assessment of missing values, duplicate data, and outlier detection.
- ADD LEAGUES and other restrictions
----
 """)
 
 # Load the CSV files to df
@@ -151,27 +144,3 @@ if __name__ == "__main__":
 with open('linear_regression_model.pkl', 'rb') as file:
     model = pickle.load(file)
 
-# Streamlit app for interactive predictions
-def main():
-    st.title('Soccer Player Market Value Prediction')
-
-    st.write("### Enter the player's details to predict the market value")
-
-    # Define the input fields
-    input_data = {}
-    input_data['age'] = st.number_input('Age', min_value=15, max_value=40, value=25, step=1)
-    input_data['goals'] = st.number_input('Goals', min_value=0, value=0, step=1)
-    input_data['assists'] = st.number_input('Assists', min_value=0, value=0, step=1)
-    input_data['total_minutes'] = st.number_input('Total Minutes Played', min_value=0, value=0, step=1)
-    input_data['number_games_played'] = st.number_input('Number of Games Played', min_value=0, value=0, step=1)
-    input_data['avg_goals_per_game'] = st.number_input('Average Goals per Game', min_value=0.0, value=0.0, step=0.1)
-    input_data['avg_assists_per_year'] = st.number_input('Average Assists per Year', min_value=0.0, value=0.0, step=0.1)
-
-    # Button to make prediction
-    if st.button('Predict Market Value'):
-        input_df = pd.DataFrame([input_data])
-        prediction = model.predict(input_df)[0]
-        st.success(f"The predicted market value is: ${prediction:,.2f}")
-
-if __name__ == "__main__":
-    main()

@@ -16,7 +16,7 @@ Welcome! In this project, we aim to predict the market value of football players
 """)
 
 # Load the CSV files to df
-cleaned_df = pd.read_csv(r'C:\Users\e904176\Documents\GitHub\sports-data\data\cleaned_df.csv')
+cleaned_df = pd.read_csv(r'C:\cloudresume\react\resume\sports-data\data\cleaned_df.csv')
 
 st.write("### Data Overview", cleaned_df.head())
 
@@ -112,9 +112,34 @@ def main():
 if __name__ == "__main__":
     main()
 
-# Load the model from the pickle file
-with open('linear_regression_model.pkl', 'rb') as file:
-    model = pickle.load(file)
+import streamlit as st
+import pandas as pd
+import pickle
+import os
+
+# Define the path where the models are stored
+MODEL_PATH = 'C:/cloudresume/react/resume/sports-data/models'
+
+# Function to load the model and its components
+def load_model_components(model_name):
+    model_file = os.path.join(MODEL_PATH, f'{model_name}_model.pkl')
+    X_imputer_file = os.path.join(MODEL_PATH, f'{model_name}_X_imputer.pkl')
+    y_imputer_file = os.path.join(MODEL_PATH, f'{model_name}_y_imputer.pkl')
+
+    with open(model_file, 'rb') as file:
+        model = pickle.load(file)
+    with open(X_imputer_file, 'rb') as file:
+        X_imputer = pickle.load(file)
+    with open(y_imputer_file, 'rb') as file:
+        y_imputer = pickle.load(file)
+
+    scaler = None
+    if model_name in ['LinearRegression', 'RidgeRegression', 'LassoRegression', 'PolynomialRegression']:
+        scaler_file = os.path.join(MODEL_PATH, f'{model_name}_scaler.pkl')
+        with open(scaler_file, 'rb') as file:
+            scaler = pickle.load(file)
+    
+    return model, X_imputer, y_imputer, scaler
 
 # Streamlit app for interactive predictions
 def main():
@@ -122,15 +147,24 @@ def main():
 
     st.write("### Enter the player's details to predict the market value")
 
+    # Model selection
+    model_names = ['LinearRegression', 'RidgeRegression', 'LassoRegression',
+                   'PolynomialRegression', 'RandomForestRegressor', 'GradientBoostingRegressor', 'SVR']
+    selected_model_name = st.selectbox('Select a model for prediction:', model_names)
+
+    # Load the selected model and components
+    model, X_imputer, y_imputer, scaler = load_model_components(selected_model_name)
+
     # Define the input fields
-    input_data = {}
-    input_data['age'] = st.number_input('Age', min_value=15, max_value=40, value=25, step=1)
-    input_data['goals'] = st.number_input('Goals', min_value=0, value=0, step=1)
-    input_data['assists'] = st.number_input('Assists', min_value=0, value=0, step=1)
-    input_data['total_minutes'] = st.number_input('Total Minutes Played', min_value=0, value=0, step=1)
-    input_data['number_games_played'] = st.number_input('Number of Games Played', min_value=0, value=0, step=1)
-    input_data['avg_goals_per_game'] = st.number_input('Average Goals per Game', min_value=0.0, value=0.0, step=0.1)
-    input_data['avg_assists_per_year'] = st.number_input('Average Assists per Year', min_value=0.0, value=0.0, step=0.1)
+    input_data = {
+        'age': st.number_input('Age', min_value=15, max_value=40, value=25, step=1),
+        'goals': st.number_input('Goals', min_value=0, value=0, step=1),
+        'assists': st.number_input('Assists', min_value=0, value=0, step=1),
+        'total_minutes': st.number_input('Total Minutes Played', min_value=0, value=0, step=1),
+        'number_games_played': st.number_input('Number of Games Played', min_value=0, value=0, step=1),
+        'avg_goals_per_game': st.number_input('Average Goals per Game', min_value=0.0, value=0.0, step=0.1),
+        'avg_assists_per_year': st.number_input('Average Assists per Year', min_value=0.0, value=0.0, step=0.1)
+    }
 
     # Button to make prediction
     if st.button('Predict Market Value'):
@@ -144,3 +178,18 @@ if __name__ == "__main__":
 with open('linear_regression_model.pkl', 'rb') as file:
     model = pickle.load(file)
 
+
+        
+        # Apply imputation
+        input_df = pd.DataFrame(X_imputer.transform(input_df), columns=input_df.columns)
+        
+        # Apply scaling if necessary
+        if scaler is not None:
+            input_df = scaler.transform(input_df)
+        
+        # Predict and display the result
+        prediction = model.predict(input_df)[0]
+        st.success(f"The predicted market value is: ${prediction:,.2f}")
+
+if __name__ == "__main__":
+    main()

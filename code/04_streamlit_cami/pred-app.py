@@ -4,16 +4,12 @@ import pickle
 
 # Load your models and imputers (adjust the file paths as necessary)
 model_path_dict = {
-    'Model 1': r'C:\Users\e904176\Documents\GitHub\sports-data\models\LinearRegression_X_imputer.pkl',
+    'Model 1': r'C:\cloudresume\react\resume\sports-data\models\LinearRegression_model.pkl',
     # Add more models if you have them
 }
-imputer_path_dict = {
-    'Imputer 1': r'C:\Users\e904176\Documents\GitHub\sports-data\models\LinearRegression_X_imputer.pkl',
-    # Add more imputers if you have them
-}
+
 
 models = {name: pickle.load(open(path, 'rb')) for name, path in model_path_dict.items()}
-imputers = {name: pickle.load(open(path, 'rb')) for name, path in imputer_path_dict.items()}
 
 # Streamlit app
 def main():
@@ -36,20 +32,13 @@ def main():
     # Convert user inputs into a DataFrame
     input_df = pd.DataFrame([input_data])
 
-    # Allow the user to select an imputer
-    imputer_name = st.selectbox('Select Imputer', list(imputers.keys()))
-
-    # Impute missing values using the selected imputer
-    imputer = imputers[imputer_name]
-    input_df_imputed = pd.DataFrame(imputer.transform(input_df), columns=input_df.columns)
-
     # Make prediction button
     if st.button('Predict Market Value'):
         # Load the selected model
         model = models[model_name]
         
         # Make prediction
-        prediction = model.predict(input_df_imputed)
+        prediction = model.predict(input_df)
 
         # Display the prediction
         st.write(f"The predicted market value of the player is: {prediction[0]}")

@@ -65,3 +65,6 @@ Notzen Cami
 # Position unterscheiden hallo  f
 
 
+to do Cami: 
+- market value vs highest market value (nur market value im dataset)
+

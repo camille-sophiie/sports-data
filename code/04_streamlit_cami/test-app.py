@@ -141,6 +141,9 @@ def load_model_components(model_name):
     
     return model, X_imputer, y_imputer, scaler
 
+
+
+
 # Streamlit app for interactive predictions
 def main():
     st.title('Soccer Player Market Value Prediction')
@@ -149,7 +152,7 @@ def main():
 
     # Model selection
     model_names = ['LinearRegression', 'RidgeRegression', 'LassoRegression',
-                   'PolynomialRegression', 'RandomForestRegressor', 'GradientBoostingRegressor', 'SVR']
+                   'PolynomialRegression']
     selected_model_name = st.selectbox('Select a model for prediction:', model_names)
 
     # Load the selected model and components

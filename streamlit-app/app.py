@@ -1,10 +1,13 @@
-import streamlit as st
-import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly.express as px
-import plotly.express as px
 import pickle
+import streamlit as st
+import pandas as pd
+import numpy as np
+from joblib import load
+import matplotlib.pyplot as plt
+import os
 
 st.markdown("""
 # Welcome to Our Football Market Value Prediction Project ⚽
@@ -112,17 +115,11 @@ def main():
 if __name__ == "__main__":
     main()
 
-import streamlit as st
-import pandas as pd
-import numpy as np
-from joblib import load
-import matplotlib.pyplot as plt
-import os
 
-# Load your trained model
+# Load  model
 model = load('ridge_regression_model.pkl')
 
-# Load your dataset (for the box plot)
+
 # Ensure your dataset CSV file is in the same directory as this script, or provide the full path.
 
 # Load the CSV files to df

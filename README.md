@@ -6,7 +6,7 @@
 **End date:** 02/09/2024
 
 **People involved:**  
-- Camille Mathilde Sophie Nigon  
+- Camille Nigon  
   Contact: [camillemathildesophie.nigon@stud.hslu.ch](mailto:camillemathildesophie.nigon@stud.hslu.ch)
 - Victor Anton  
   Contact: [victor.anton@stud.hslu.ch](mailto:victor.anton@stud.hslu.ch)
@@ -87,7 +87,7 @@ streamlit run app.py
 or alternatively
 
 ```bash
- python -m streamlit run test-app.py
+ python -m streamlit run app.py
  ```
 
 Streamlit will start a server, and you should see the following:

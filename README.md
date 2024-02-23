@@ -1,24 +1,58 @@
-## Footballer Market value Prediction 
-*** Institution: Hochschule Luzern (HSLU)
-*** Start date ( 02/05 2024/ ), end date (02 /09 /2024 )
-*** People involved: Camille Mathilde Sophie Nigon, Victor Anton, Nicole Bolliger
-Contact: camillemathildesophie.nigon@stud.hslu.ch, victor.anton@stud.hslu.ch, nicole.bolliger@stud.hslu.ch 
-*** Software and versions: Python in Visual Studio Code 1.86.1, The app is located within the `streamlit-app` folder and is named `app.py`.
-*** Data: found in data folder players_filtered.csv, apperances_filtered.csv and cleaned_df.csv
-*** General purpose of experiment or processing: This project is about the market value of the football industry.
-*** Specific purpose of experiment or processing:In the big 5 leagues we see high market values. With the following project it should be analyzed what factors could influence the market value of the players. In order to analyze the market value we look at the 4 different positions (goalkeeper, defender, midfield and striker) to see which factors play a role in the market value depending on the factors.
-*** Installation: 
-			for the modeeling: pandas, os, seaborn, matplotlib, sklearn, statsmodels, if not install it using pip
-*** Basic operation: The app will process the user input based on the position of the player a model is chosen. Based on the factors provided by the user the market value is calculated.
-*** Resources: Linear Regression: simple linear modeling technique assuming relationship is linear between the features
-	Ridge Regression: Linear regression with regularization to prevent overfitting, suitable for multicollinear data.
-	Lasso Regression: Linear regression with L1 regularization for feature selection, useful for models with many features.
-	Polynomial Regression: Fits a polynomial function to the data, capturing nonlinear relationships between features and target.
-	RandomForestRegressor: Ensemble learning method using multiple decision trees for robust predictions.
-	GradientBoostingRegressor: Ensemble method building predictive models in stages, minimizing errors iteratively.
-	SVR (Support Vector Regressor): Utilizes support vector machine principles for regression tasks, mapping features to high-dimensional space.
+# Footballer Market Value Prediction
 
-*** Instruction for the app:
+**Institution:** Hochschule Luzern (HSLU)
+
+**Start date:** 02/05/2024  
+**End date:** 02/09/2024
+
+**People involved:**  
+- Camille Mathilde Sophie Nigon  
+  Contact: [camillemathildesophie.nigon@stud.hslu.ch](mailto:camillemathildesophie.nigon@stud.hslu.ch)
+- Victor Anton  
+  Contact: [victor.anton@stud.hslu.ch](mailto:victor.anton@stud.hslu.ch)
+- Nicole Bolliger  
+  Contact: [nicole.bolliger@stud.hslu.ch](mailto:nicole.bolliger@stud.hslu.ch)
+
+**Software and versions:**  
+- Python in Visual Studio Code 1.86.1  
+- The app is located within the `streamlit-app` folder and is named `app.py`.
+
+**Data:** 
+- `players_filtered.csv`
+- `apperances_filtered.csv`
+- `cleaned_df.csv`  
+  Found in the data folder.
+  Data source: [Kaggle](https://www.kaggle.com/datasets/davidcariboo/player-scores)
+
+**General purpose of experiment or processing:**  
+This project is about predicting the market value of football players in the industry.
+
+**Specific purpose of experiment or processing:**  
+Analyzing factors that could influence the market value of players in the big 5 leagues. The project will focus on the 4 different positions (goalkeeper, defender, midfield, and striker) to determine which factors are influential in market value depending on the position.
+
+**Installation:**  
+For the modeling, ensure the following packages are installed:
+- pandas
+- os
+- seaborn
+- matplotlib
+- sklearn
+- statsmodels  
+If not, install them using pip.
+
+**Basic operation:**  
+The app processes user input based on the player's position. A model is chosen accordingly and uses the factors provided by the user to calculate the market value.
+
+**Resources:**  
+- **Linear Regression:** Simple linear modeling technique assuming a linear relationship between features.
+- **Ridge Regression:** Linear regression with regularization to prevent overfitting, suitable for multicollinear data.
+- **Lasso Regression:** Linear regression with L1 regularization for feature selection, useful for models with many features.
+- **Polynomial Regression:** Fits a polynomial function to the data, capturing non-linear relationships between features and target.
+- **RandomForestRegressor:** Ensemble learning method using multiple decision trees for robust predictions.
+- **GradientBoostingRegressor:** Ensemble method building predictive models in stages, minimizing errors iteratively.
+- **SVR (Support Vector Regressor):** Utilizes support vector machine principles for regression tasks, mapping features to high-dimensional space.
+
+# Instructions to run the streamlit app
 
 ## Prerequisites
 

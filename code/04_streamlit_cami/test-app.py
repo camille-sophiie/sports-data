@@ -114,85 +114,66 @@ if __name__ == "__main__":
 
 import streamlit as st
 import pandas as pd
-import pickle
+import numpy as np
+from joblib import load
+import matplotlib.pyplot as plt
 import os
 
-# Define the path where the models are stored
-MODEL_PATH = 'C:/cloudresume/react/resume/sports-data/models'
+# Load your trained model
+model = load('ridge_regression_model.pkl')
 
-# Function to load the model and its components
-def load_model_components(model_name):
-    model_file = os.path.join(MODEL_PATH, f'{model_name}_model.pkl')
-    X_imputer_file = os.path.join(MODEL_PATH, f'{model_name}_X_imputer.pkl')
-    y_imputer_file = os.path.join(MODEL_PATH, f'{model_name}_y_imputer.pkl')
+# Load your dataset (for the box plot)
+# Ensure your dataset CSV file is in the same directory as this script, or provide the full path.
 
-    with open(model_file, 'rb') as file:
-        model = pickle.load(file)
-    with open(X_imputer_file, 'rb') as file:
-        X_imputer = pickle.load(file)
-    with open(y_imputer_file, 'rb') as file:
-        y_imputer = pickle.load(file)
+# Load the CSV files to df
+df = pd.read_csv('cleaned_df.csv')
 
-    scaler = None
-    if model_name in ['LinearRegression', 'RidgeRegression', 'LassoRegression', 'PolynomialRegression']:
-        scaler_file = os.path.join(MODEL_PATH, f'{model_name}_scaler.pkl')
-        with open(scaler_file, 'rb') as file:
-            scaler = pickle.load(file)
+# Define the layout of your app
+st.title('Market Value Prediction App')
+
+# Create user input fields
+st.header('Enter the player details:')
+number_games_played = st.number_input('Number of Games Played', min_value=0)
+total_minutes = st.number_input('Total Minutes', min_value=0)
+avg_goals_per_game = st.number_input('Average Goals per Game', min_value=0.0, format="%.2f")
+goals = st.number_input('Goals', min_value=0)
+assists = st.number_input('Assists', min_value=0)
+age = st.number_input('Age', min_value=0)
+avg_games_per_year = st.number_input('Average Games per Year', min_value=0)
+avg_goals_per_year = st.number_input('Average Goals per Year', min_value=0.0, format="%.2f")
+position_options = ['Goalkeeper', 'Defender', 'Midfielder', 'Forward']  # Update with your positions
+position = st.selectbox('Position', position_options)
+
+# Predict market value
+if st.button('Predict Market Value'):
+    # Create a DataFrame with the input features
+    input_data = pd.DataFrame([[
+        number_games_played,
+        total_minutes,
+        avg_goals_per_game,
+        goals,
+        assists,
+        age,
+        avg_games_per_year,
+        avg_goals_per_year,
+        position
+    ]], columns=[
+        'number_games_played',
+        'total_minutes',
+        'avg_goals_per_game',
+        'goals',
+        'assists',
+        'age',
+        'avg_games_per_year',
+        'avg_goals_per_year',
+        'position'
+    ])
     
-    return model, X_imputer, y_imputer, scaler
+    # Get the prediction
+    prediction = model.predict(input_data)
+    
+    # Ensure prediction is not negative
+    prediction = max(prediction, [0])
 
-
-
-
-# Streamlit app for interactive predictions
-def main():
-    st.title('Soccer Player Market Value Prediction')
-
-    st.write("### Enter the player's details to predict the market value")
-
-    # Model selection
-    model_names = ['LinearRegression', 'RidgeRegression', 'LassoRegression',
-                   'PolynomialRegression']
-    selected_model_name = st.selectbox('Select a model for prediction:', model_names)
-
-    # Load the selected model and components
-    model, X_imputer, y_imputer, scaler = load_model_components(selected_model_name)
-
-    # Define the input fields
-    input_data = {
-        'age': st.number_input('Age', min_value=15, max_value=40, value=25, step=1),
-        'goals': st.number_input('Goals', min_value=0, value=0, step=1),
-        'assists': st.number_input('Assists', min_value=0, value=0, step=1),
-        'total_minutes': st.number_input('Total Minutes Played', min_value=0, value=0, step=1),
-        'number_games_played': st.number_input('Number of Games Played', min_value=0, value=0, step=1),
-        'avg_goals_per_game': st.number_input('Average Goals per Game', min_value=0.0, value=0.0, step=0.1),
-        'avg_assists_per_year': st.number_input('Average Assists per Year', min_value=0.0, value=0.0, step=0.1)
-    }
-
-    # Button to make prediction
-    if st.button('Predict Market Value'):
-        input_df = pd.DataFrame([input_data])
-        prediction = model.predict(input_df)[0]
-        st.success(f"The predicted market value is: ${prediction:,.2f}")
-
-if __name__ == "__main__":
-    main()
-# Load the model from the pickle file
-with open('linear_regression_model.pkl', 'rb') as file:
-    model = pickle.load(file)
-
-
-        
-        # Apply imputation
-        input_df = pd.DataFrame(X_imputer.transform(input_df), columns=input_df.columns)
-        
-        # Apply scaling if necessary
-        if scaler is not None:
-            input_df = scaler.transform(input_df)
-        
-        # Predict and display the result
-        prediction = model.predict(input_df)[0]
-        st.success(f"The predicted market value is: ${prediction:,.2f}")
-
-if __name__ == "__main__":
-    main()
+    # Display the prediction
+    st.write(f"The predicted market value is: ${max(prediction[0], 0):,.2f}")

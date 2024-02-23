@@ -3,6 +3,12 @@ import pandas as pd
 import numpy as np
 import pickle
 
+# Run the Streamlit app
+if __name__ == "__main__":
+    st.set_page_config(page_title="Football Player Market Value Predictor", layout="wide")
+    st.title("Football Player Market Value Predictor")
+    st.markdown("Select the desired machine learning model and enter the player's features to predict the market value.")
+
 # Function to load a model
 def load_model(model_path):
     with open(model_path, 'rb') as file:
@@ -64,8 +70,3 @@ if st.sidebar.button('Predict Market Value'):
     # Display the prediction
     st.write(f"Predicted Market Value: ${prediction[0]:,.2f}")
 
-# Run the Streamlit app
-if __name__ == "__main__":
-    st.set_page_config(page_title="Football Player Market Value Predictor", layout="wide")
-    st.title("Football Player Market Value Predictor")
-    st.markdown("Select the desired machine learning model and enter the player's features to predict the market value.")

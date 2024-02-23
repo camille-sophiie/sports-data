@@ -63,9 +63,3 @@ if st.button('Predict Market Value'):
 
     # Display the prediction
     st.write(f"The predicted market value is: ${max(prediction[0], 0):,.2f}")
-
-    # Display a box plot for the market value distribution and the predicted point
-    fig, ax = plt.subplots()
-    ax.boxplot(df['highest_market_value'])  # Replace with your actual target variable name
-    ax.scatter(1, prediction, color='red')  # Plot the predicted value on the boxplot
-    st.pyplot(fig)

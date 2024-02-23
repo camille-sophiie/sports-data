@@ -27,10 +27,13 @@ Contact: camillemathildesophie.nigon@stud.hslu.ch, victor.anton@stud.hslu.ch, ni
 This project is about market value prediction in the football industry. 
 
 ## Dataset
+KAGGLE LINK
 
 ## Methodology
 
 ## Tools & Technologies
+
+
 
 
 Notes from Lecturer

@@ -19,7 +19,7 @@ Welcome! In this project, we aim to predict the market value of football players
 """)
 
 # Load the CSV files to df
-cleaned_df = pd.read_csv(r'C:\cloudresume\react\resume\sports-data\data\cleaned_df.csv')
+cleaned_df = pd.read_csv('cleaned_df.csv')
 
 st.write("### Data Overview", cleaned_df.head())
 

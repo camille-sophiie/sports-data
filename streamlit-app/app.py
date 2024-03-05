@@ -8,6 +8,13 @@ import numpy as np
 from joblib import load
 import matplotlib.pyplot as plt
 import os
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import Ridge
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import mean_squared_error, r2_score
+import plotly
 
 st.markdown("""
 # Welcome to Our Football Market Value Prediction Project ⚽
@@ -19,7 +26,7 @@ Welcome! In this project, we aim to predict the market value of football players
 """)
 
 # Load the CSV files to df
-cleaned_df = pd.read_csv('cleaned_df.csv')
+cleaned_df = pd.read_csv('/workspaces/sports-data/streamlit-app/cleaned_df.csv')
 
 st.write("### Data Overview", cleaned_df.head())
 
@@ -117,13 +124,13 @@ if __name__ == "__main__":
 
 
 # Load  model
-model = load('ridge_regression_model.pkl')
+model = load('/workspaces/sports-data/streamlit-app/ridge_regression_model.pkl')
 
 
 # Ensure your dataset CSV file is in the same directory as this script, or provide the full path.
 
 # Load the CSV files to df
-df = pd.read_csv('cleaned_df.csv')
+df = pd.read_csv('/workspaces/sports-data/streamlit-app/cleaned_df.csv')
 
 # Define the layout of your app
 st.title('Market Value Prediction App')

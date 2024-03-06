@@ -29,7 +29,18 @@ Welcome! In this project, we aim to predict the market value of football players
 cleaned_df = pd.read_csv('cleaned_df.csv')
 
 st.write("### Data Overview", cleaned_df.head())
+# Text input for the search query
+search_query = st.text_input("Enter a name to search:")
 
+# Display the full DataFrame if the search query is empty
+if search_query == "":
+    st.dataframe(cleaned_df.head())  # Show only the first few rows using .head()
+else:
+    # Filter the DataFrame based on the search query in the 'name' column
+    filtered_df = cleaned_df[cleaned_df['name'].str.contains(search_query, case=False, na=False)]
+
+    # Display the filtered DataFrame
+    st.dataframe(filtered_df)
 def main():
     st.title('Interactive Scatter Plot')
 

@@ -26,7 +26,7 @@ Welcome! In this project, we aim to predict the market value of football players
 """)
 
 # Load the CSV files to df
-cleaned_df = pd.read_csv('/workspaces/sports-data/cleaned_df.csv')
+cleaned_df = pd.read_csv('cleaned_df.csv')
 
 st.write("### Data Overview", cleaned_df.head())
 
@@ -124,13 +124,13 @@ if __name__ == "__main__":
 
 
 # Load  model
-model = load('/workspaces/sports-data/ridge_regression_model.pkl')
+model = load('ridge_regression_model.pkl')
 
 
 # Ensure your dataset CSV file is in the same directory as this script, or provide the full path.
 
 # Load the CSV files to df
-df = pd.read_csv('/workspaces/sports-data/cleaned_df.csv')
+df = pd.read_csv('cleaned_df.csv')
 
 # Define the layout of your app
 st.title('Market Value Prediction App')

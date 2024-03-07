@@ -14,8 +14,7 @@
   Contact: [nicole.bolliger@stud.hslu.ch](mailto:nicole.bolliger@stud.hslu.ch)
 
 **Software and versions:**  
-- Python in Visual Studio Code 1.86.1  
-- The app is located within the `streamlit-app` folder and is named `app.py`.
+- Python in Visual Studio Code 
 
 **Data:** 
 - `players_filtered.csv`
@@ -38,7 +37,7 @@ For the modeling, ensure the following packages are installed:
 - matplotlib
 - sklearn
 - statsmodels  
-If not, install them using pip.
+If not, install them or additional libraries using pip.
 
 **Basic operation:**  
 The app processes user input based on the player's position. A model is chosen accordingly and uses the factors provided by the user to calculate the market value.
@@ -52,62 +51,30 @@ The app processes user input based on the player's position. A model is chosen a
 - **GradientBoostingRegressor:** Ensemble method building predictive models in stages, minimizing errors iteratively.
 - **SVR (Support Vector Regressor):** Utilizes support vector machine principles for regression tasks, mapping features to high-dimensional space.
 
-# Instructions to run the streamlit app
+# Sports Data Streamlit Application
 
-## Prerequisites
+We are excited to share our new Streamlit application that allows users to interact with our carefully curated dataset. Our team has implemented a Ridge Regression model to power the predictive features of the application.
 
-Before running the app, ensure you have the following installed:
+## Accessing the Application
 
-- Python 3.6 or higher
-- pip (Python package installer)
-- Streamlit
+To get started with the app, please visit the following URL:
 
+[https://sports-data.streamlit.app/](https://sports-data.streamlit.app/)
 
-Install Streamlit using pip with the following command:
+## Viewing Requirements
 
-```bash
-pip install streamlit
-```
+For the best experience, we recommend using a desktop web browser. This ensures that all features and visualizations are displayed correctly and interactively.
 
-## Running the App
+## JavaScript Requirement
 
-Follow these steps to run the app:
+**Important:** You need to enable JavaScript in your web browser to run this app. JavaScript is essential for the dynamic and interactive elements of the Streamlit application to function properly.
 
-1. Open a terminal or command prompt.
-2. Change directory to where `app.py` is located:
+## How to Enable JavaScript
 
+If you're not sure how to enable JavaScript in your browser, follow these general steps (note that instructions may vary slightly depending on your browser version and type):
 
+1. Open your web browser settings.
+2. Look for the "Privacy" or "Security" settings.
+3. Find the section that includes JavaScript settings.
+4. Ensure that JavaScript is allowed/turned on for the website.
 
-3. Execute the app with Streamlit:
-
-```bash
-streamlit run app.py
-```
-
-or alternatively
-
-```bash
- python -m streamlit run app.py
- ```
-
-Streamlit will start a server, and you should see the following:
-
-```
-You can now view your Streamlit app in your browser.
-
-Local URL: http://localhost:8501
-Network URL: http://192.168.x.x:8501
-```
-
-4. Open a browser and navigate to `http://localhost:8501` to view the app.
-
-## Stopping the App
-
-To stop the app, return to the terminal and press `Ctrl + C`.
-
-## Troubleshooting
-If you encounter any issues:
-
-- Confirm app.py resides within the streamlit-app folder.
-- Make sure you have installed all the necessary libraries. If you're unsure which libraries are needed, they are imported at the top of the app.py script. Install any that are missing using ```pip install library-name```.
-- Make sure you're in the correct directory when running streamlit run app.py 
